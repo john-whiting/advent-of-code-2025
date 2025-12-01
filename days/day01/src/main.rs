@@ -27,33 +27,27 @@ fn directions(input: &str) -> IResult<&str, Vec<Direction>> {
 }
 
 fn step(position: i64, dir: &Direction) -> (i64, i64) {
-    let mut new_position = position;
-    let mut zeros_crossed = 0;
-
     match dir {
         Direction::Left(steps) => {
-            new_position = new_position - steps;
-            if new_position <= 0 {
-                zeros_crossed += (new_position - 100) / -100;
-            }
-            if position == 0 {
-                zeros_crossed -= 1;
-            }
-            new_position = new_position.rem_euclid(100);
+            let new_position = position - steps;
+            let zeros_crossed = match position {
+                _ if new_position > 0 => 0,
+                p if p == 0 => new_position / -100,
+                _ => (new_position / -100) + 1,
+            };
+            (new_position.rem_euclid(100), zeros_crossed)
         }
         Direction::Right(steps) => {
-            new_position = new_position + steps;
-            zeros_crossed += new_position / 100;
-            new_position = new_position.rem_euclid(100);
+            let new_position = position + steps;
+            let zeros_crossed = new_position / 100;
+            (new_position.rem_euclid(100), zeros_crossed)
         }
-    };
-
-    (new_position, zeros_crossed)
+    }
 }
 
 
-fn day01(input: &str) -> i64 {
-    let (_, dirs) = directions(input).unwrap();
+fn day01(input: &str) -> IResult<&str, i64> {
+    let (input, dirs) = directions(input)?;
 
     let (_, counted_zeros) = dirs.iter().fold((50, 0), |(position, counted_zeros), dir| {
         let (new_position, _) = step(position, dir);
@@ -65,26 +59,26 @@ fn day01(input: &str) -> i64 {
         (new_position, new_counted_zeros)
     });
 
-    return counted_zeros;
+    return Ok((input, counted_zeros));
 }
 
-fn day02(input: &str) -> i64 {
-    let (_, dirs) = directions(input).unwrap();
+fn day02(input: &str) -> IResult<&str, i64> {
+    let (input, dirs) = directions(input)?;
 
     let (_, counted_zeros) = dirs.iter().fold((50, 0), |(position, counted_zeros), dir| {
         let (new_position, zeros_crossed) = step(position, dir);
         (new_position, counted_zeros + zeros_crossed)
     });
 
-    return counted_zeros;
+    return Ok((input, counted_zeros));
 }
 
 
 fn main() {
-    let result = day01(INPUT.trim());
+    let (_, result) = day01(INPUT.trim()).unwrap();
     println!("Day 01: {}", result);
-
-    let result = day02(INPUT.trim());
+    
+    let (_, result) = day02(INPUT.trim()).unwrap();
     println!("Day 02: {}", result);
 }
 
@@ -116,25 +110,25 @@ L82
 
     #[test]
     fn test_day01_example() {
-        let result = day01(EXAMPLE_INPUT.trim());
+        let (_, result) = day01(EXAMPLE_INPUT.trim()).unwrap();
         assert_eq!(result, 3);
     }
 
     #[test]
     fn test_day02_example() {
-        let result = day02(EXAMPLE_INPUT.trim());
+        let (_, result) = day02(EXAMPLE_INPUT.trim()).unwrap();
         assert_eq!(result, 6);
     }
 
     #[test]
     fn test_day01() {
-        let result = day01(INPUT.trim());
+        let (_, result) = day01(INPUT.trim()).unwrap();
         assert_eq!(result, 1076);
     }
 
     #[test]
     fn test_day02() {
-        let result = day02(INPUT.trim());
+        let (_, result) = day02(INPUT.trim()).unwrap();
         assert_eq!(result, 6379);
     }
 
