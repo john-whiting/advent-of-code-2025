@@ -46,7 +46,7 @@ fn step(position: i64, dir: &Direction) -> (i64, i64) {
 }
 
 
-fn day01(input: &str) -> IResult<&str, i64> {
+fn part1(input: &str) -> IResult<&str, i64> {
     let (input, dirs) = directions(input)?;
 
     let (_, counted_zeros) = dirs.iter().fold((50, 0), |(position, counted_zeros), dir| {
@@ -62,7 +62,7 @@ fn day01(input: &str) -> IResult<&str, i64> {
     return Ok((input, counted_zeros));
 }
 
-fn day02(input: &str) -> IResult<&str, i64> {
+fn part2(input: &str) -> IResult<&str, i64> {
     let (input, dirs) = directions(input)?;
 
     let (_, counted_zeros) = dirs.iter().fold((50, 0), |(position, counted_zeros), dir| {
@@ -75,10 +75,10 @@ fn day02(input: &str) -> IResult<&str, i64> {
 
 
 fn main() {
-    let (_, result) = day01(INPUT.trim()).unwrap();
+    let (_, result) = part1(INPUT.trim()).unwrap();
     println!("Day 01: {}", result);
     
-    let (_, result) = day02(INPUT.trim()).unwrap();
+    let (_, result) = part2(INPUT.trim()).unwrap();
     println!("Day 02: {}", result);
 }
 
@@ -109,26 +109,26 @@ L82
     }
 
     #[test]
-    fn test_day01_example() {
-        let (_, result) = day01(EXAMPLE_INPUT.trim()).unwrap();
+    fn test_part1_example() {
+        let (_, result) = part1(EXAMPLE_INPUT.trim()).unwrap();
         assert_eq!(result, 3);
     }
 
     #[test]
     fn test_day02_example() {
-        let (_, result) = day02(EXAMPLE_INPUT.trim()).unwrap();
+        let (_, result) = part2(EXAMPLE_INPUT.trim()).unwrap();
         assert_eq!(result, 6);
     }
 
     #[test]
-    fn test_day01() {
-        let (_, result) = day01(INPUT.trim()).unwrap();
+    fn test_part1() {
+        let (_, result) = part1(INPUT.trim()).unwrap();
         assert_eq!(result, 1076);
     }
 
     #[test]
     fn test_day02() {
-        let (_, result) = day02(INPUT.trim()).unwrap();
+        let (_, result) = part2(INPUT.trim()).unwrap();
         assert_eq!(result, 6379);
     }
 
