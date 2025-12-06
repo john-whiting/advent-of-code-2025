@@ -1,0 +1,32 @@
+{
+  "name": "Advent of Code",
+  "dockerComposeFile": "./compose.yml",
+  "service": "workspace",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "dev",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        },
+        "remote.forwardOnOpen": false,
+        "remote.autoForwardPorts": false
+      },
+      "extensions": [
+        "vivaxy.vscode-conventional-commits",
+        "ms-azuretools.vscode-docker",
+        "editorconfig.editorconfig",
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "britesnow.vscode-toggle-quotes",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  }
+}

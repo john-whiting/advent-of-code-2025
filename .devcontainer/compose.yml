@@ -1,0 +1,10 @@
+name: advent-of-code
+services:
+  workspace:
+    container_name: advent-of-code-workspace
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ~/.ssh:/home/dev/.ssh
+      - ../:/workspace
