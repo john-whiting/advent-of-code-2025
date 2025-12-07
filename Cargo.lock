@@ -10,6 +10,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "day02"
+version = "0.1.0"
+dependencies = [
+ "nom",
+]
+
+[[package]]
 name = "day03"
 version = "0.1.0"
 dependencies = [
@@ -29,6 +36,10 @@ version = "0.1.0"
 dependencies = [
  "nom",
 ]
+
+[[package]]
+name = "day07"
+version = "0.1.0"
 
 [[package]]
 name = "memchr"
